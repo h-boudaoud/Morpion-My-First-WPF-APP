@@ -1,0 +1,350 @@
+﻿<Window x:Class="morpionEnWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:morpionEnWPF"
+        mc:Ignorable="d"
+        Title="Le morpion" Height="452" Width="774" WindowStartupLocation="CenterScreen" Background="#FFDDDDF0">
+    <Window.Resources>
+        <Style x:Key="HeaderStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Gray" />
+            <Setter Property="FontSize" Value="30" />
+        </Style>
+    </Window.Resources>
+
+    <StackPanel>
+        <StackPanel>
+            <StackPanel>
+                <DockPanel>
+                    <DockPanel.Resources>
+                        <Style TargetType = "MenuItem">
+                            <Setter Property = "FontSize" Value = "14" />
+                            <Setter Property = "FontFamily" Value = "Tippa" />
+                            <Setter Property = "Background" Value = "#FF040440" />
+                            <Setter Property = "Foreground" Value = "#FFFBF2F2" />
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
+                    </DockPanel.Resources>
+                    <Menu DockPanel.Dock="Top" FontSize="16">
+                        <MenuItem Header="File">
+                            <MenuItem Header="New Game" x:Name="new">
+                                <MenuItem Header ="Deux Joueurs" Click="MenuItem_Click_2playrs" />
+                                <MenuItem Header ="Facile" Click="MenuItem_Click_Facile" />
+                                <MenuItem Header ="Moyen" Click="MenuItem_Click_Moyen" />
+                                <MenuItem Header ="Difficile" Click="MenuItem_Click_Difficile" />
+                                <MenuItem Header ="Expert" Click="MenuItem_Click_Expert" />
+                            </MenuItem>
+                            <Separator />
+                            <MenuItem Header="MenuExit" x:Name="Exit" Click="Exit_Click"/>
+                        </MenuItem>
+                    </Menu>
+                </DockPanel>
+                <StackPanel Background="#FF040440" >
+                    <TextBlock Text="Le morpion"  
+                               FontSize="36"  Foreground="#FFF" FontFamily="Tippa"  
+                               HorizontalAlignment="Center" 
+                               />
+                </StackPanel>
+
+                <StackPanel x:Name="ZoneInfo">
+
+                    <StackPanel.Resources>
+                        <Style TargetType = "Button">
+                            <Setter Property = "FontSize" Value = "20" />
+                            <Setter Property = "Height" Value = "30" />
+                            <Setter Property = "Width" Value = "30" />
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <StackPanel Orientation="Horizontal" Margin="50,0">
+                        <Grid Width="700">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Grid.Row="0" Margin="5,5">Nom du joueur 1 :</Label>
+                            <TextBox Grid.Column="1" Grid.Row="0" x:Name="NameJ1" Margin="0,5" Text="Joueur 1"/>
+
+                            <Button Grid.Column="2" Grid.Row="0"
+                                    x:Name="ChoixJ1" Content="X" 
+                                    Foreground="Purple" Background="MistyRose" Margin="0,5"
+                                    />
+                            <DockPanel  Grid.Column="3"  Grid.Row="0"  Margin="5,5" >
+                                <Menu Width="90" Margin="0,10,50,10">
+                                    <MenuItem Header="Morpion" FontSize="14">
+                                        <MenuItem>
+                                            <MenuItem.Header>
+                                                <Button
+                                                    x:Name="Choix_1" Content="O" Click="Choix_1_Click"
+                                                    Foreground="Blue" Background="Azure" Margin="0,5" 
+                                                    />
+                                            </MenuItem.Header>
+                                        </MenuItem>
+                                        <MenuItem>
+                                            <MenuItem.Header>
+                                                <Button 
+                                                    x:Name="Choix_2" Content="X" Click="Choix_2_Click"
+                                                    Foreground="Purple" Background="MistyRose" Margin="0,5" 
+                                                    />
+                                            </MenuItem.Header>
+                                        </MenuItem>
+                                    </MenuItem>
+                                </Menu>
+                            </DockPanel>
+
+
+                            <Border  Grid.Column="4" Grid.Row="1"
+                                Background="#FF040440" 
+                                BorderBrush="White" 
+                                BorderThickness="2" 
+                                CornerRadius="10,10,10,10" 
+                                Margin="0,5,60,5" 
+                
+                            >
+
+                                <Button  Content="Jouer" 
+                                        Click="NewGame_Click"
+                                    BorderBrush="#FF040440"
+                                    FontFamily="Tippa" FontSize="16"
+                                    Foreground="#FFF"  Background="#FF040440" Margin="3,3,3,3" Width="105"                    
+                                />          
+                            </Border>
+
+                        </Grid>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="50,0">
+                        <Grid Width="700">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Column="0" Grid.Row="1" Margin="5,5">Nom du joueur 2 :</Label>
+                            <TextBox Grid.Column="1" Grid.Row="1" x:Name="NameJ2"   Margin="0,5" Text="Ordinateur"/>
+                            <Button Grid.Column="2" Grid.Row="1"
+                                    x:Name="ChoixJ2" Content="O" 
+                                    Foreground="Blue" Background="Azure" Margin="0,5" 
+                                    />
+
+                            <DockPanel  Grid.Column="3"  Grid.Row="1"  Margin="5,5">
+                                <Menu  Width="90" Margin="0,10,50,10">
+                                    <MenuItem Header="Difficulté" FontSize="14">
+                                        <MenuItem Header ="Deux Joueurs" Click="MenuItem_Click_2playrs" />
+                                        <MenuItem Header ="Facile" Click="MenuItem_Click_Facile" />
+                                        <MenuItem Header ="Moyen" Click="MenuItem_Click_Moyen" />
+                                        <MenuItem Header ="Difficile" Click="MenuItem_Click_Difficile" />
+                                        <MenuItem Header ="Expert" Click="MenuItem_Click_Expert" />
+                                    </MenuItem>
+                                </Menu>
+                            </DockPanel>
+                            <Label Grid.Column="4" x:Name="ChoixJeu" Grid.Row="1" Margin="5,5"></Label>
+                        </Grid>
+
+                    </StackPanel>
+
+
+                </StackPanel>
+
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel x:Name="ZoneJeu" Orientation="Horizontal" Margin="170,10,16,10" Height="240">
+            <Grid x:Name="GridGame" Width="250">
+                <Grid.Resources>
+                    <Style TargetType = "{x:Type Button}">
+                        <Setter Property = "Foreground" Value = "blue" />
+                        <Setter Property="Content" Value=""/>
+                        <Setter Property = "FontSize" Value = "30" />
+                        <Setter Property = "Height" Value = "79" />
+                        <Setter Property = "Width" Value = "79" />
+                        <Setter Property="Background" Value="Beige"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="80" />
+                    <RowDefinition Height="80" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="80" />
+                </Grid.ColumnDefinitions>
+                <Button 
+                    Click="Button0_Click"
+                    x:Name="Button0"
+                    Grid.Row="0" 
+                    Grid.Column="0"
+                />
+                <Button
+                    Uid="0"
+                    Click="Button1_Click" 
+                    x:Name="Button1"
+                    Grid.Row="0" 
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                            />
+                <Button
+                    Uid="1"
+                    Click="Button2_Click"    
+                    x:Name="Button2"
+                    Grid.Row="0" 
+                    Grid.Column="2" 
+                            />
+                <Button 
+                    Uid="2"
+                    Click="Button10_Click"
+                    x:Name="Button10"                            
+                    Grid.Row="1"                            
+                    Grid.Column="0" 
+                />
+                <Button 
+                    Click="Button11_Click"                            
+                    x:Name="Button11"                            
+                    Grid.Row="1"                             
+                    Grid.Column="1" 
+                />
+                <Button 
+                    Click="Button12_Click"
+                    x:Name="Button12"
+                    Grid.Row="1" 
+                    Grid.Column="2" 
+                />
+                <Button 
+                    Click="Button20_Click"                            
+                    x:Name="Button20"                            
+                    Grid.Row="2"                             
+                    Grid.Column="0" 
+                            />
+                <Button 
+                    Click="Button21_Click"                            
+                    x:Name="Button21"                            
+                    Grid.Row="2"                            
+                    Grid.Column="1"  
+                            />
+                <Button                      
+                    Click="Button22_Click"
+                    x:Name="Button22"
+                    Grid.Row="2" 
+                    Grid.Column="2" 
+                />
+
+            </Grid>
+            <StackPanel Width="325" Margin="0,3,0,0">
+                <StackPanel Orientation="Horizontal" Margin="20,0">
+
+                    <StackPanel Width="285">
+                        <TextBlock  
+                            Text="          Score          " 
+                            FontFamily="Tippa" FontSize="16"
+                            Foreground="#FFF"  Background="#FF040440"
+                            HorizontalAlignment="Center"
+                        />
+                    </StackPanel>
+                </StackPanel>
+                <Grid Margin="0,0,5,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="150" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" FontSize="16" FontFamily="Tippa" Content="{ Binding ElementName=NameJ1, Path=Text, Mode=TwoWay}"/>
+                    <Label Grid.Row="0" Grid.Column="1" FontSize="16" FontFamily="Tippa" Content=":" />
+                    <TextBlock  Grid.Row="0" Grid.Column="2" x:Name="scoreJoueur1" FontSize="16" Text="0" FontFamily="Tippa" Height="20" RenderTransformOrigin="0.667,0.179" Width="16" />
+
+                    <Label Grid.Row="1" Grid.Column="0" FontSize="16" FontFamily="Tippa" Content="{ Binding ElementName=NameJ2, Path=Text, Mode=TwoWay}"/>
+                    <Label Grid.Row="0" Grid.Column="1" FontSize="16" FontFamily="Tippa" Content=":" />
+                    <TextBlock  Grid.Row="1" Grid.Column="2"  x:Name="scoreJoueur2" FontSize="16" Text="0" FontFamily="Tippa" Height="20" RenderTransformOrigin="0.667,0.179" Width="16" />
+                </Grid>
+                <!--<StackPanel Orientation="Horizontal" Margin="20,0">
+                    <Label  FontSize="16" FontFamily="Tippa" Content="{ Binding ElementName=NameJ1, Path=Text, Mode=TwoWay}"/>
+                    <TextBlock x:Name="scoreJoueur1" FontSize="16" Text="0" FontFamily="Tippa" Height="20" RenderTransformOrigin="0.667,0.179" Width="16">
+
+                    </TextBlock>
+                </StackPanel>-->
+
+                <!--<StackPanel Orientation="Horizontal" Margin="20,0">
+                    <Label  FontSize="16" FontFamily="Tippa" Content="{ Binding ElementName=NameJ2, Path=Text, Mode=TwoWay}"/>
+                    <TextBlock x:Name="scoreJoueur2" FontSize="16" Text="0" FontFamily="Tippa" Height="20" RenderTransformOrigin="0.667,0.179" Width="15">
+                    </TextBlock>
+                </StackPanel>-->
+
+                
+                <Border
+                    Background="#FF040440" 
+                    BorderBrush="White" 
+                    BorderThickness="2" 
+                    CornerRadius="10,10,10,10" 
+                    Margin="40,0,80,0"
+                    Padding="10,5,10,5"
+                
+                >
+
+                    <Button 
+                        x:Name="IniialiserScore" Content="Initialier le score"
+                        Click="IniialiserScore_Click"
+                        BorderBrush="#FF040440"
+                        FontFamily="Tippa" FontSize="12"
+                        Foreground="#FFF"  Background="#FF040440"                    
+                    />
+                </Border>
+
+            </StackPanel>
+        </StackPanel>
+        <Popup Name="myPopup" Margin="10,10,0,13" 
+                       HorizontalAlignment="Left" VerticalAlignment="Top" 
+                       HorizontalOffset="100" VerticalOffset="-200"
+                       Width="400" Height="100" IsOpen="false"
+                
+                       >
+            <Border
+                        Background="#FF040440" 
+                        BorderBrush="Blue" 
+                        BorderThickness="2" 
+                
+                    >
+
+                <StackPanel Width="400" Height="100" Background="#FFDDDDF0">
+                    <Button 
+                                Content="X" Name="CloseMyPopup" 
+                                Click="CloseMyPopup_Click" 
+                                Width="30" Height="20" 
+                                HorizontalAlignment="Right"
+                                Padding="3,3,3,3"
+                            ></Button>
+                    <TextBlock 
+                                x:Name="Winner" Text="" 
+                                FontFamily="Tippa" FontSize="16"
+                                HorizontalAlignment="Center"
+                                Width="300" Height="80" 
+                            />
+                </StackPanel>
+            </Border>
+        </Popup>
+
+    </StackPanel>
+
+</Window>
